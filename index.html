@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Séries Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+</head>
+<body>
+    <header>
+        <input type="text" id="searchInput" placeholder="Rechercher une série...">
+        <div id="filterPills" class="scrollable-pills"></div>
+    </header>
+
+    <main id="appContent">
+        <section id="tab-watching" class="tab-view active"></section>
+        <section id="tab-calendar" class="tab-view hidden"></section>
+        <section id="tab-waiting" class="tab-view hidden"></section>
+        <section id="tab-finished" class="tab-view hidden">
+            <div style="padding: 15px; background-color: #1e1e1e; border-radius: 8px; margin-top: 20px; border-left: 4px solid #ffc107;">
+                <h3 style="margin-bottom: 15px; font-size: 16px;">Sécurité & Sauvegarde</h3>
+                <button onclick="exportBackup()" style="width: 100%; padding: 12px; margin-bottom: 10px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 14px;">⬇️ Exporter ma bibliothèque (.json)</button>
+                <label style="display: block; width: 100%; padding: 12px; background-color: #007bff; color: white; text-align: center; border-radius: 6px; font-weight: bold; font-size: 14px;">
+                    ⬆️ Importer une sauvegarde
+                    <input type="file" accept=".json" style="display: none;" onchange="importBackup(event)">
+                </label>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-target="tab-watching">À regarder</button>
+        <button class="nav-btn" data-target="tab-calendar">Agenda <span id="notifBadge" class="badge hidden"></span></button>
+        <button class="nav-btn" data-target="tab-waiting">En attente</button>
+        <button class="nav-btn" data-target="tab-finished">Paramètres</button>
+    </nav>
+
+    <script src="app.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+      }
+    </script>
+</body>
+</html>
